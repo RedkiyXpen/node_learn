@@ -1,14 +1,8 @@
-const { resolveSoa } = require('dns');
-
 const http = require('http'),
-      server = http.createServer((req, res) => {
-        if (req === '/') {
-            res.write('hello world from nodejs');
-            res.end();
-        } else {
-            res.write('use some other domain');
-            res.end();
-        }
-      });
+      fs = require('fs');
 
-server.listen('3000');
+const server = http.createServer((req, res) => {
+    const readStream = fs.createReadStream('./static/example.JPG');
+    res.writeHead(200, {'Content-type': 'image/jpeg'});
+    readStream.pipe(res);
+}).listen('3000');
