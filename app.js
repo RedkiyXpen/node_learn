@@ -14,6 +14,10 @@ app.use('/example', (req, res, next) => {
 
 app.set('view engine', 'ejs');
 
+const people = require('./routes/people');
+
+app.use('/people', people);
+
 app.get('/:userQuery', (req, res) => {
     console.log(req.banana);
     res.render('index', {data : {userQuery : req.params.userQuery,
