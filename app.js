@@ -7,9 +7,15 @@ const app = express();
 app.use('/public', express.static(path.join(__dirname, 'static')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use('/example', (req, res, next) => {
+    req.banana = 'banana';
+    next();
+});
+
 app.set('view engine', 'ejs');
 
 app.get('/:userQuery', (req, res) => {
+    console.log(req.banana);
     res.render('index', {data : {userQuery : req.params.userQuery,
                                  searchResult : ['book1', 'book2', 'book3'],
                                  loggedIn : true,
